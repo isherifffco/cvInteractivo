@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="CV interactivo de Oscar Francisco — Software Engineer & IT Specialist. Experiencia en desarrollo full-stack, QA, IA Generativa y soporte técnico.">
+  <title>CV — Oscar Francisco | Software Engineer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=Syne:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="oscar_cv.css">
+</head>
+<body>
+
+<div class="cv-root dark-mode" id="cvRoot">
+  <!-- ───── EMAIL MODAL ───── -->
+  <div class="modal-overlay" id="emailModal" onclick="closeModal(event)">
+    <div class="modal">
+      <div class="modal-title">Enviar correo<button class="modal-close" onclick="closeEmailModal()">✕</button></div>
+      <div class="modal-field">
+        <div class="modal-label">Para</div><input class="modal-input" value="oscar.8a.fco@gmail.com" readonly>
+      </div>
+      <div class="modal-field">
+        <div class="modal-label">Asunto</div><input class="modal-input" id="emailSubject" placeholder="Asunto del correo">
+      </div>
+      <div class="modal-field">
+        <div class="modal-label">Mensaje</div><textarea class="modal-input" id="emailBody" rows="4" placeholder="Escribe tu mensaje…"></textarea>
+      </div>
+      <div class="modal-actions">
+        <button class="modal-btn modal-btn-cancel" onclick="closeEmailModal()">Cancelar</button>
+        <button class="modal-btn modal-btn-send" onclick="sendEmail()">Abrir correo</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ───── TOPBAR ───── -->
+  <div class="cv-topbar">
+    <div class="cv-mode-switch">
+      <button class="mode-btn active" id="btn-dev" onclick="switchMode('dev')">Dev &amp; QA</button>
+      <button class="mode-btn" id="btn-it" onclick="switchMode('it')">IT &amp; Soporte</button>
+    </div>
+    <div class="cv-topbar-right">
+      <button class="topbar-btn" onclick="toggleTheme()"><span id="themeIcon">☀</span><span id="themeLabel">Light</span></button>
+      <button class="topbar-btn topbar-btn-accent" onclick="printCV(currentMode)">⬇ Descargar PDF</button>
+    </div>
+  </div>
+
+  <!-- ───── CARD ───── -->
+  <div class="cv-card">
+
+    <!-- HEADER -->
+    <div class="cv-header">
+      <div class="header-accent-bar"></div>
+      <img class="cv-photo" src="data:image/png;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDAA..." alt="Foto de Oscar Francisco">
+      <div class="cv-info">
+        <div class="cv-name">Oscar<br>Francisco</div>
+        <div class="cv-title-pill">
+          <span class="cv-title-dot"></span>
+          <span class="cv-title-text" id="cvTitle">Software Engineer</span>
+        </div>
+        <p class="cv-summary" id="cvSummary">Ingeniero de software con experiencia en desarrollo full-stack, coordinación de proyectos y QA. Especializado en la aplicación práctica de IA Generativa, LLMs, Prompt Engineering y RAG integrados en flujos reales de producción. Stack versátil con enfoque en soluciones escalables y bien documentadas.</p>
+      </div>
+      <div class="cv-contact">
+        <button class="contact-btn" onclick="openEmailModal()">✉ oscar.8a.fco@gmail.com</button>
+        <div style="position:relative">
+          <button class="contact-btn" onclick="toggleDropdown(event)">📱 +52 662-XXX-XXXX ▾</button>
+          <div class="phone-menu" id="phoneMenu">
+            <a class="phone-item" href="https://wa.me/526622XXXXXX" target="_blank">WhatsApp</a>
+            <a class="phone-item" href="tel:+526622XXXXXX">Llamar</a>
+          </div>
+        </div>
+        <a class="contact-btn" href="https://www.linkedin.com/in/oscar-francisco" target="_blank">🔗 LinkedIn</a>
+        <div class="contact-loc">📍 Hermosillo, Sonora — México</div>
+      </div>
+    </div>
+
+    <!-- BODY -->
+    <div class="cv-body">
+
+      <!-- MAIN -->
+      <div class="cv-main">
+
+        <!-- DEV EXPERIENCE -->
+        <div id="exp-dev">
+          <div class="section">
+            <div class="section-title">Experiencia</div>
+
+            <div class="exp-item">
+              <div class="exp-header">
+                <div class="exp-left">
+                  <div class="exp-company">GISNET <span class="exp-badge badge-current">Actual</span><span class="exp-badge badge-hybrid">Híbrido</span></div>
+                  <div class="exp-client">Cliente: <span>Catastro Municipal — Bahía de Banderas, Nayarit</span></div>
+                </div>
+                <span class="exp-date">Ene 2026 – hoy</span>
+              </div>
+              <div class="exp-role">Coordinador de Proyecto de Software</div>
+              <ul class="exp-bullets">
+                <li>Coordinación del desarrollo del sistema catastral UGC-BB sobre Angular y PostgreSQL.</li>
+                <li>Análisis de requerimientos, creación de mockups y documentación técnica asistida con IA Generativa.</li>
+                <li>Validación de datos y corrección de relaciones en BD con 5M+ registros.</li>
+                <li>Prompt Engineering y LLMs aplicados a generación de componentes, QA y análisis de requerimientos.</li>
+                <li>Gestión de tareas en Jira y ejecución de pruebas manuales de QA por módulo.</li>
+              </ul>
+              <div class="exp-stack">
+                <span class="exp-tag">Angular</span><span class="exp-tag">PostgreSQL</span><span class="exp-tag">LLMs</span>
+                <span class="exp-tag">IA Generativa</span><span class="exp-tag">Prompt Engineering</span><span class="exp-tag">RAG</span>
+                <span class="exp-tag">Claude AI</span><span class="exp-tag">Jira</span><span class="exp-tag">QA Manual</span>
+                <span class="exp-tag">Mockups</span><span class="exp-tag">VS Code</span>
+              </div>
+            </div>
+
+            <div class="exp-item">
+              <div class="exp-header">
+                <div class="exp-left"><div class="exp-company">CFE — Depto. SIAD <span class="exp-badge badge-hybrid">Híbrido</span></div></div>
+                <span class="exp-date">2023 – 2025</span>
+              </div>
+              <div class="exp-role">Desarrollador de Software</div>
+              <ul class="exp-bullets">
+                <li>Desarrollo full-stack de sistemas empresariales en Java EE, código escrito manualmente y asistido con Claude AI.</li>
+                <li>Gestión y consultas sobre base de datos relacional.</li>
+                <li>Integración frontend-backend y automatización de flujos internos.</li>
+              </ul>
+              <div class="exp-stack">
+                <span class="exp-tag">Java EE</span><span class="exp-tag">SQL</span><span class="exp-tag">RAG</span>
+                <span class="exp-tag">Claude AI</span><span class="exp-tag">ChatGPT</span><span class="exp-tag">HTML/CSS</span>
+                <span class="exp-tag">Full-Stack</span>
+              </div>
+            </div>
+
+            <div class="exp-item">
+              <div class="exp-header">
+                <div class="exp-left"><div class="exp-company">Caffenio <span class="exp-badge badge-hybrid">Híbrido</span></div></div>
+                <span class="exp-date">2022</span>
+              </div>
+              <div class="exp-role">Desarrollador de Software</div>
+              <ul class="exp-bullets">
+                <li>Desarrollo y mantenimiento de sistemas drive-thru en C# integrados con base de datos.</li>
+                <li>Mejoras en flujo operativo de punto de venta en sucursales.</li>
+              </ul>
+              <div class="exp-stack">
+                <span class="exp-tag">C#</span><span class="exp-tag">SQL Server</span><span class="exp-tag">Visual Studio</span>
+              </div>
+            </div>
+
+            <div class="exp-item">
+              <div class="exp-header">
+                <div class="exp-left"><div class="exp-company">Intersel <span class="exp-badge badge-remote">Remoto</span></div></div>
+                <span class="exp-date">2020 – 2022</span>
+              </div>
+              <div class="exp-role">Desarrollo de Software &amp; Servicios Administrados</div>
+              <ul class="exp-bullets">
+                <li>Gestión de bases de datos SQL y elaboración de reportes profesionales en Excel.</li>
+                <li>Soporte técnico remoto y atención a clientes vía videollamada.</li>
+              </ul>
+              <div class="exp-stack">
+                <span class="exp-tag">SQL</span><span class="exp-tag">Excel avanzado</span>
+                <span class="exp-tag">TeamViewer</span><span class="exp-tag">Helpdesk</span>
+              </div>
+            </div>
+          </div>
+
+          <div id="projects-dev" class="section">
+            <div class="section-title">Proyectos</div>
+            <div class="project-item">
+              <div class="project-name">AquaYa <span class="project-badge">En desarrollo</span></div>
+              <div class="project-stack">Flutter · Node.js · PostgreSQL · REST API</div>
+            </div>
+            <div class="project-item">
+              <div class="project-name">Tipster App <span class="project-badge">En desarrollo</span></div>
+              <div class="project-stack">Flutter · Node.js · PostgreSQL</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- IT EXPERIENCE -->
+        <div id="exp-it" style="display:none">
+          <div class="section">
+            <div class="section-title">Experiencia IT &amp; Soporte</div>
+
+            <div class="exp-item">
+              <div class="exp-header">
+                <div class="exp-left"><div class="exp-company">CFE — Depto. de Informática <span class="exp-badge badge-hybrid">Híbrido</span></div></div>
+                <span class="exp-date">2023 – 2025</span>
+              </div>
+              <div class="exp-role">Especialista en Help Desk</div>
+              <ul class="exp-bullets">
+                <li>Soporte técnico avanzado presencial y remoto (AnyDesk, TeamViewer).</li>
+                <li>Administración de infraestructura de red: LAN, inalámbrica, punto a punto, antenas y parabólicas.</li>
+                <li>Configuración de telefonía IP, medición de velocidad e interferencia de señal, Starlink.</li>
+                <li>Ensamble y mantenimiento de PC Gamer y Workstation. Dominio en Windows Server.</li>
+              </ul>
+              <div class="exp-stack">
+                <span class="exp-tag">AnyDesk</span><span class="exp-tag">TeamViewer</span><span class="exp-tag">Redes LAN</span>
+                <span class="exp-tag">Redes inalámbricas</span><span class="exp-tag">Punto a punto</span><span class="exp-tag">Starlink</span>
+                <span class="exp-tag">Telefonía IP</span><span class="exp-tag">Windows Server</span>
+                <span class="exp-tag">PC Gamer</span><span class="exp-tag">Workstation</span>
+              </div>
+            </div>
+
+            <div class="exp-item">
+              <div class="exp-header">
+                <div class="exp-left"><div class="exp-company">Acción Acuícola S.A. de C.V.</div></div>
+                <span class="exp-date">2022 – 2023</span>
+              </div>
+              <div class="exp-role">Encargado de Sistemas — Planta Bahía de Kino</div>
+              <ul class="exp-bullets">
+                <li>Administración de infraestructura tecnológica en planta procesadora de camarón en entorno industrial costero.</li>
+                <li>Integración y calibración de básculas industriales conectadas a red para registro automatizado de peso vía internet.</li>
+                <li>Administración de BD SQL y reportes operativos para control de producción y trazabilidad.</li>
+                <li>Conectividad mediante enlaces inalámbricos, punto a punto y antenas en zona remota.</li>
+              </ul>
+              <div class="exp-stack">
+                <span class="exp-tag">Redes industriales</span><span class="exp-tag">Básculas en red</span>
+                <span class="exp-tag">Integración IoT</span><span class="exp-tag">Punto a punto</span>
+                <span class="exp-tag">Antenas</span><span class="exp-tag">SQL</span><span class="exp-tag">Excel avanzado</span>
+              </div>
+            </div>
+
+            <div class="exp-item">
+              <div class="exp-header">
+                <div class="exp-left"><div class="exp-company">Secretaría de Educación y Cultura</div></div>
+                <span class="exp-date">2020 – 2023</span>
+              </div>
+              <div class="exp-role">Docente de Informática y Matemáticas</div>
+              <ul class="exp-bullets">
+                <li>Docente de Informática — Secundaria Técnica #60 (2020–2021).</li>
+                <li>Docente de Matemáticas — Secundaria General #11 (2022–2023).</li>
+              </ul>
+              <div class="exp-stack">
+                <span class="exp-tag">Microsoft Office</span><span class="exp-tag">Google Workspace</span>
+              </div>
+            </div>
+
+            <div class="exp-item">
+              <div class="exp-header">
+                <div class="exp-left"><div class="exp-company">Intersel <span class="exp-badge badge-remote">Remoto</span></div></div>
+                <span class="exp-date">2020 – 2022</span>
+              </div>
+              <div class="exp-role">Servicios Administrados</div>
+              <ul class="exp-bullets">
+                <li>Helpdesk, videollamadas de asistencia técnica y reportes profesionales en Excel.</li>
+              </ul>
+              <div class="exp-stack">
+                <span class="exp-tag">Helpdesk remoto</span><span class="exp-tag">TeamViewer</span>
+                <span class="exp-tag">SQL</span><span class="exp-tag">Excel avanzado</span>
+              </div>
+            </div>
+          </div>
+
+          <div id="projects-it" class="section">
+            <div class="section-title">Certificaciones</div>
+            <div class="cert-item"><div class="cert-name">Certificaciones DELL — Client Foundation 2019, Q2 Assessment 2019, EMC Service Basics 2017, Dell 2000 Cliente 2018</div></div>
+            <div class="cert-item"><div class="cert-name">Certificaciones EPSON — Introducción a Escáneres · Tintas y Medios · Modelos L210, L220, L575</div></div>
+            <div class="cert-item"><div class="cert-name">Diplomado: Desarrollo de competencias para el Ingeniero en la Industria</div></div>
+          </div>
+        </div>
+
+      </div><!-- /cv-main -->
+
+      <!-- SIDEBAR -->
+      <div class="cv-sidebar">
+
+        <!-- DEV SKILLS -->
+        <div id="skills-dev">
+          <div class="section">
+            <div class="section-title">Stack</div>
+            <div class="tags-group"><div class="tags-label">Frontend</div>
+              <div class="tags"><span class="tag">Angular</span><span class="tag">Flutter</span><span class="tag">Bootstrap</span><span class="tag">HTML/CSS</span></div>
+            </div>
+            <div class="tags-group"><div class="tags-label">Backend</div>
+              <div class="tags"><span class="tag">Node.js</span><span class="tag">Java EE</span><span class="tag">C#</span></div>
+            </div>
+            <div class="tags-group"><div class="tags-label">Datos</div>
+              <div class="tags"><span class="tag">PostgreSQL</span><span class="tag">SQL Server</span><span class="tag">Firebase</span><span class="tag">NoSQL/SQL</span></div>
+            </div>
+            <div class="tags-group"><div class="tags-label">IA &amp; LLMs</div>
+              <div class="tags">
+                <span class="tag">LLMs</span><span class="tag">IA Generativa</span><span class="tag">Prompt Engineering</span>
+                <span class="tag">RAG</span><span class="tag">Claude AI</span><span class="tag">ChatGPT</span>
+                <span class="tag">Gemini</span><span class="tag">Antigravity</span><span class="tag">Codex</span>
+                <span class="tag">Claude Cowork</span><span class="tag">Claude Code CLI</span>
+              </div>
+            </div>
+            <div class="tags-group"><div class="tags-label">QA &amp; Proceso</div>
+              <div class="tags"><span class="tag">QA Manual</span><span class="tag">Jira</span><span class="tag">CI/CD</span><span class="tag">Mockups</span><span class="tag">Análisis req.</span></div>
+            </div>
+            <div class="tags-group"><div class="tags-label">Herramientas</div>
+              <div class="tags"><span class="tag">VS Code</span><span class="tag">Git</span><span class="tag">NetBeans</span><span class="tag">Google Workspace</span><span class="tag">Excel avanzado</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- IT SKILLS -->
+        <div id="skills-it" style="display:none">
+          <div class="section">
+            <div class="section-title">Skills IT</div>
+            <div class="tags-group"><div class="tags-label">Soporte técnico</div>
+              <div class="tags"><span class="tag">Hardware avanzado</span><span class="tag">Mant. preventivo</span><span class="tag">Mant. correctivo</span><span class="tag">Diagnóstico</span><span class="tag">Clonación de discos</span><span class="tag">Respaldos</span><span class="tag">Cotizaciones</span></div>
+            </div>
+            <div class="tags-group"><div class="tags-label">Sistemas operativos</div>
+              <div class="tags"><span class="tag">Windows</span><span class="tag">Dominio Windows</span><span class="tag">Windows Server</span></div>
+            </div>
+            <div class="tags-group"><div class="tags-label">Redes &amp; Conectividad</div>
+              <div class="tags"><span class="tag">Redes LAN</span><span class="tag">Redes inalámbricas</span><span class="tag">Punto a punto</span><span class="tag">Antenas</span><span class="tag">Parabólicas</span><span class="tag">Telefonía IP</span><span class="tag">Starlink</span><span class="tag">VPN</span><span class="tag">Cableado estructurado</span></div>
+            </div>
+            <div class="tags-group"><div class="tags-label">Hardware</div>
+              <div class="tags"><span class="tag">Ensamble PC</span><span class="tag">PC Gamer</span><span class="tag">Workstation</span><span class="tag">Electrónica básica</span></div>
+            </div>
+            <div class="tags-group"><div class="tags-label">Integración industrial</div>
+              <div class="tags"><span class="tag">Básculas en red</span><span class="tag">Integración IoT</span><span class="tag">Redes industriales</span></div>
+            </div>
+            <div class="tags-group"><div class="tags-label">Impresoras</div>
+              <div class="tags"><span class="tag">Reparación intermedia</span><span class="tag">Cabezales</span><span class="tag">Tarjetas lógicas</span><span class="tag">Config. en red</span></div>
+            </div>
+            <div class="tags-group"><div class="tags-label">Celulares</div>
+              <div class="tags"><span class="tag">Reparación básica</span><span class="tag">Reemplazo display</span><span class="tag">Flasheo ROM</span><span class="tag">Liberación</span></div>
+            </div>
+            <div class="tags-group"><div class="tags-label">Acceso remoto</div>
+              <div class="tags"><span class="tag">AnyDesk</span><span class="tag">TeamViewer</span><span class="tag">Escritorio remoto</span></div>
+            </div>
+            <div class="tags-group"><div class="tags-label">Multimedia</div>
+              <div class="tags"><span class="tag">Photoshop</span><span class="tag">Edición de video</span><span class="tag">Google Ads</span><span class="tag">Facebook Ads</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- EDUCATION (shared) -->
+        <div class="section">
+          <div class="section-title">Educación</div>
+          <div class="edu-item">
+            <div class="edu-school">Universidad Estatal de Sonora</div>
+            <div class="edu-deg">Ingeniería en Software</div>
+            <div class="edu-date">2015 – 2019</div>
+          </div>
+          <div class="edu-item">
+            <div class="edu-school">CBTIS #206</div>
+            <div class="edu-deg">Técnico en Electricidad</div>
+            <div class="edu-date">2012 – 2015</div>
+          </div>
+          <div class="edu-item">
+            <div class="edu-school">Diplomado</div>
+            <div class="edu-deg">Ingeniería en la Industria</div>
+            <div class="edu-date">2020</div>
+          </div>
+        </div>
+
+        <!-- LANGUAGES (shared) -->
+        <div class="section">
+          <div class="section-title">Idiomas</div>
+          <div class="tags"><span class="tag">Español — nativo</span><span class="tag tag-neutral">Inglés técnico</span></div>
+        </div>
+
+      </div><!-- /cv-sidebar -->
+
+    </div><!-- /cv-body -->
+  </div><!-- /cv-card -->
+</div><!-- /cv-root -->
+
+<script>
+  // Track current mode for the topbar PDF button
+  let currentMode = 'dev';
+</script>
+<script src="oscar_cv.js"></script>
+
+</body>
+</html>
