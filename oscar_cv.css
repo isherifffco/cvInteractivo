@@ -1,4 +1,4 @@
-﻿  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=Syne:wght@400;600;700&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=Syne:wght@400;600;700&display=swap');
 
   :root {
     --bg: #f5f4f0;
@@ -832,4 +832,44 @@
     width: 14px;
     height: 14px;
     flex-shrink: 0;
+  }
+
+  @media print {
+    @page {
+      margin: 0;
+      size: auto;
+    }
+    
+    body, .cv-root {
+      background: var(--bg2) !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    .cv-topbar, .dl-sep, .modal-overlay {
+      display: none !important;
+    }
+
+    .cv-card {
+      margin: 0 !important;
+      border: none !important;
+      box-shadow: none !important;
+      border-radius: 0 !important;
+      max-width: 100% !important;
+    }
+
+    .cv-header {
+      padding-top: 3rem !important;
+    }
+
+    .header-accent-bar {
+      height: 6px !important;
+      border-radius: 0 !important;
+    }
+
+    .cv-sidebar {
+      background: var(--bg) !important;
+    }
   }
