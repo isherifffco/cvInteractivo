@@ -61,6 +61,21 @@
    * are captured exactly as seen on screen.
    */
   function printCV() {
-    // The @media print rules in CSS will handle hiding UI elements
     window.print();
+  }
+
+  function printBoth() {
+    const confirm = window.confirm("Se generarán dos PDFs secuencialmente:\n1. Software Engineer (Dev)\n2. IT Specialist\n\nHaz clic en Aceptar para comenzar con el primero.");
+    if (!confirm) return;
+
+    // First: Dev mode
+    switchMode('dev');
+    window.print();
+
+    // Small delay to ensure the browser has finished the first print task before switching
+    // Note: window.print() is usually blocking, so this will run after the first dialog closes.
+    setTimeout(() => {
+      switchMode('it');
+      window.print();
+    }, 1000);
   }
